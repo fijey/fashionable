@@ -17,6 +17,7 @@ class ProductSeeder extends Seeder
         $product = new \App\Models\Product;
         $product->store_id = 1;
         $product->id_category = 2;
+        $product->id_subcategory = 3;
         $product->product_name = "Celana Levis Mamaboga";
         $product->product_price = 10000;
         $product->product_description = "Celana mamaboga dalah sebuah celana yang mampu memberikan nuansa berbeda ketika";
