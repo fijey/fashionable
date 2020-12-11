@@ -23,7 +23,7 @@ class CreateStoresTable extends Migration
             $table->string('store_shopee')->nullable();
             $table->string('store_tokopedia')->nullable();
             $table->string('store_bukalapak')->nullable();
-            $table->string('store_about')->nullable();
+            $table->text('store_about')->nullable();
             $table->timestamps();
         });
     }

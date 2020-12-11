@@ -43,7 +43,7 @@
           <td>{{ $pu->category_name }}</td>
           <td>{{ $pu->product_price }}</td>
           <td>
-            <a href="/managementuser/edit/{{ $pu->id_product }}" class="btn btn-warning text-white"><i
+            <a href="/editproduct/{{ $pu->id_product }}" class="btn btn-warning text-white"><i
                 class="fa fa-edit"></i></a>
             <a href="/deleteproduct/{{ $pu->id_product }}" class="btn btn-danger text-white"><i
                 class="fa fa-trash"></i></a>

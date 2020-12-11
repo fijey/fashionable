@@ -38,7 +38,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <li class="nav-item">
           <div class="btn-group">
             <button type="button" class="btn dropdown-toggle dropdown-icon" data-toggle="dropdown">
-              <img src="/img/user1-128x128.jpg" class="img-circle" alt="User Image" width="50px" height="50px">
+              <img src="{{ auth()->user()->profile->img_profile }}" class="img-circle" alt="User Image" width="50px"
+                height="50px">
               {{ auth()->user()->name }}
               <span class="sr-only">Toggle Dropdown</span>
             </button>
@@ -57,9 +58,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="index3.html" class="brand-link">
-        <img src="/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-          style="opacity: .8">
+      <a href="/" class="brand-link">
         <span class="brand-text font-weight-light">Fashionable</span>
       </a>
 
@@ -72,19 +71,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             @can('dashboard')
-            <li class="nav-item">
-              <a href="/dashboard" class="nav-link active">
+            @if (auth()->user()->id_role==1)
+
+            <li class="nav-item ">
+              <a href="/dashboard" class="nav-link {{ request()->is('dashboard*') ? 'active' : ''}}">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                   Dashboard
                 </p>
               </a>
             </li>
+            @endif
             @endcan
             @can('crud profiles')
 
             <li class="nav-item">
-              <a href="/myprofile" class="nav-link ">
+              <a href="/myprofile" class="nav-link {{ request()->is('myprofile*') ? 'active' : ''}}">
                 <i class="nav-icon fas fa-user"></i>
                 <p>
                   My Profile
@@ -96,7 +98,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             @can('crud products')
 
             <li class="nav-item">
-              <a href="/myproduct" class="nav-link ">
+              <a href="/myproduct" class="nav-link {{ request()->is('myproduct*') ? 'active' : ''}}">
                 <i class="nav-icon fas fa-shopping-bag"></i>
                 <p>
                   My Product
@@ -108,7 +110,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             @can('management users')
 
             <li class="nav-item">
-              <a href="/managementuser" class="nav-link ">
+              <a href="/managementuser" class="nav-link {{ request()->is('managementuser') ? 'active' : ''}} ">
                 <i class="nav-icon fas fa-users"></i>
                 <p>
                   Management Pengguna
@@ -119,7 +121,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             @can('management categories')
 
             <li class="nav-item">
-              <a href="/category" class="nav-link ">
+              <a href="/category" class="nav-link {{ request()->is('category') ? 'active' : ''}}">
                 <i class="nav-icon fas fa-tag"></i>
                 <p>
                   Management Category
@@ -127,10 +129,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </a>
             </li>
             @endcan
+            @can('management subcategories')
+
+            <li class="nav-item">
+              <a href="/subcategory" class="nav-link {{ request()->is('subcategory') ? 'active' : ''}} ">
+                <i class="nav-icon fas fa-tag"></i>
+                <p>
+                  Management SubCategory
+                </p>
+              </a>
+            </li>
+
+            @endcan
             @can('logout')
 
             <li class="nav-item">
-              <a href="/logout" class="nav-link ">
+              <a href="/logout" class="nav-link {{ request()->is('logout') ? 'active' : ''}}">
                 <i class="nav-icon fas fa-sign-out-alt"></i>
                 <p>
                   Logout

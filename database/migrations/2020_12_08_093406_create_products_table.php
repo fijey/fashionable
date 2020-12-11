@@ -23,7 +23,7 @@ class CreateProductsTable extends Migration
             $table->foreign('id_subcategory')->references('id_subcategory')->on('sub_categories');
             $table->string('product_name');
             $table->integer('product_price');
-            $table->string('product_description');
+            $table->text('product_description');
             $table->string('product_img1')->nullable();
             $table->string('product_img2')->nullable();
             $table->string('product_img3')->nullable();

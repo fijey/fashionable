@@ -24,6 +24,7 @@ class PermissionSeeder extends Seeder
           Permission::create(['name' => 'dashboard']);
           Permission::create(['name' => 'management users']);
           Permission::create(['name' => 'management categories']);
+          Permission::create(['name' => 'management subcategories']);
           Permission::create(['name' => 'logout']);
   
           // create roles and assign created permissions

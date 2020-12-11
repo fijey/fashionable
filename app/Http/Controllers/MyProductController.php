@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use DB;
 use \App\Models\Category;
+use \App\Models\SubCategory;
 
 class MyProductController extends Controller
 {
@@ -28,8 +29,10 @@ class MyProductController extends Controller
     public function addProduct() {
 
         $getcategory= Category::all();
+        $getsubcategory= SubCategory::all();
 
         $data = [
+            'subcategory'=> $getsubcategory,
             'category'=> $getcategory
         ];
 
@@ -39,8 +42,8 @@ class MyProductController extends Controller
 
         $request->validate([
             'id_category' => 'required',
+            'id_subcategory' => 'required',
             'product_name' => 'required',
-            'product_brand' => 'required',
             'product_condition' => 'required',
             'product_price' => 'required',
             'product_description' => 'required',
@@ -52,6 +55,7 @@ class MyProductController extends Controller
        $product = new \App\Models\Product;
        $product->store_id = Auth::user()->profile->store->store_id;
        $product->id_category = $request->id_category;
+       $product->id_subcategory = $request->id_subcategory;
        $product->product_name = $request->product_name;
        $product->product_brand = $request->product_brand;
        $product->product_condition = $request->product_condition;
@@ -132,6 +136,10 @@ class MyProductController extends Controller
 
         $product = Product::find($id);
         $product->update($request->all());
+
+        $pathimg = Auth::user()->name;
+        $newstr = preg_replace('/\s/', '', $pathimg);
+        $path = "img/ImageStore/$newstr/";
 
         if ($request->hasfile('product_img1')) {
             $request->file('product_img1')->move('img/ImageStore/' . $newstr, $request->file('product_img1')->getClientOriginalName());

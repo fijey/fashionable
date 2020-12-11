@@ -18,7 +18,7 @@ class CreateUserProfilesTable extends Migration
             $table->string('address')->nullable();
             $table->string('age')->nullable();
             $table->string('city')->nullable();
-            $table->string('img_profile')->nullable();
+            $table->string('img_profile')->nullable()->default('/img/avatar.svg');
             $table->string('handphone')->nullable();
             $table->unsignedBigInteger('store_id');
             $table->foreign('store_id')->references('store_id')->on('stores');

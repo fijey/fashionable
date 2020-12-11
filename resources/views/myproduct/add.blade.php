@@ -40,7 +40,7 @@
 
   <!-- Main content -->
   <section class="content mb-5">
-    <form action="/managementuser/add" method="post" enctype="multipart/form-data">
+    <form action="/postproduct" method="post" enctype="multipart/form-data">
       @csrf
       <div class="row">
         <div class="col-md-6">
@@ -65,6 +65,16 @@
                 </select>
               </div>
               <div class="form-group">
+                <label>Sub Kategori Product</label>
+                <select class="form-control select2" value="{{ old('id_subcategory') }}" name="id_subcategory"
+                  style="width: 100%;">
+                  @foreach($subcategory as $ct)
+                  <option value="{{ $ct->id_subcategory }}">{{ $ct->subcategory_name }}</option>
+                  @endforeach
+
+                </select>
+              </div>
+              <div class="form-group">
                 <label for="inputName">Nama Produk</label> <br>
                 <input type="text" id="inputName" name="product_name" value="{{ old('product_name') }}"
                   placeholder="Nama Produk" class="form-control">
@@ -81,15 +91,17 @@
                 @endif
               </div>
               <div class="form-group">
-                <label for="inputName">Kondusi Produk</label>
-                <input type="text" id="inputName" name="product_condition" placeholder="Nama Produk"
-                  value="{{ old('product_condition') }}" class="form-control">
+                <label for="inputName">Kondisi Produk</label>
+                <select name="product_condition" id="" class="form-control">
+                  <option value="baru">Baru</option>
+                  <option value="second">Second</option>
+                </select>
                 @if ($errors->has('product_condition'))
                 <span class="text-danger">{{ $errors->first('product_condition') }}</span>
                 @endif
               </div>
               <div class="form-group">
-                <label for="inputName">Harga Produk</label>
+                <label for="inputName">Harga Produk (tanpa titik)</label>
                 <input type="number" id="inputName" name="product_price" placeholder="15000"
                   value="{{ old('product_price') }}" class="form-control uang">
                 @if ($errors->has('product_price'))

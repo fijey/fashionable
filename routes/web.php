@@ -7,6 +7,7 @@ use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\MyProductController;
 use App\Http\Controllers\ManagementUserController;
 use App\Http\Controllers\ManagementCategoryController;
+use App\Http\Controllers\ManagementSubCategoryController;
 use App\Http\Controllers\AuthController;
 
 /*
@@ -22,8 +23,7 @@ use App\Http\Controllers\AuthController;
 
 
 
-Route::group(['middleware' => ['role:Admin']], function () {
-    Route::get('/category' , [ManagementCategoryController::class,'index']);
+Route::group(['middleware' => ['auth','role:Admin']], function () {
     Route::get('/managementuser/add' , [ManagementUserController::class,'addUser']);
     Route::post('/managementuser/add' , [ManagementUserController::class,'postUser']);
     Route::get('/managementuser/edit/{id}' , [ManagementUserController::class,'editUser']);
@@ -31,12 +31,16 @@ Route::group(['middleware' => ['role:Admin']], function () {
     Route::get('/managementuser' , [ManagementUserController::class,'index']);
     Route::get('/edituser/{id}' , [ManagementUserController::class,'editUser']);
     Route::get('/deleteuser/{id}' , [ManagementUserController::class,'deleteUser']);
+    Route::get('/category' , [ManagementCategoryController::class,'index']);
     Route::post('/category/add' , [ManagementCategoryController::class,'addCategory']);
     Route::get('/category/delete/{id}' , [ManagementCategoryController::class,'deleteCategory']);
+    Route::get('/subcategory' , [ManagementSubCategoryController::class,'index']);
+    Route::post('/subcategory/add' , [ManagementSubCategoryController::class,'addSubCategory']);
+    Route::get('/subcategory/delete/{id}' , [ManagementSubCategoryController::class,'deleteSubCategory']);
     
 });
 
-Route::group(['middleware' => ['role:User|Admin']], function () {
+Route::group(['middleware' => ['auth','role:User|Admin']], function () {
     Route::get('/dashboard' , [DashboardController::class,'index']);
     Route::get('/createstore' , [AuthController::class,'createStore']);
     Route::post('/createstore' , [AuthController::class,'postStore']);
@@ -50,9 +54,12 @@ Route::group(['middleware' => ['role:User|Admin']], function () {
     Route::post('/editproduct/{id}' , [MyProductController::class,'updateProduct']);
     Route::post('/editprofile' , [UserProfileController::class,'editProfile']);
     Route::post('/editstore' , [UserProfileController::class,'editStore']);
+    Route::get('/' , [HomeController::class,'index']);
     
 });
 Route::get('/' , [HomeController::class,'index']);
+Route::get('/{idcategory}/{idsubcategory}' , [HomeController::class,'bycategory'])->name('menu');
+Route::get('/{idcategory}/{idsubcategory}/{idproduct}/{storeid}' , [HomeController::class,'detail']);
 Route::get('/login' , [AuthController::class,'index']);
 Route::post('/postlogin' , [AuthController::class,'postLogin']);
 Route::get('/register' , [AuthController::class,'register']);
